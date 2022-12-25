@@ -1,0 +1,114 @@
+function d_split_list(xs) {
+
+    // *** Your answer here. ***
+    const length_pair = length(xs);
+    const mid = length_pair % 2 === 0 ? length_pair / 2 - 1 : math_floor(length_pair / 2);
+    
+  
+    
+    let mid_pair = xs;
+    for (let i = 0; i < mid; i = i + 1) {
+        mid_pair = tail(mid_pair);
+    }
+
+    
+    const rest_of_xs = tail(mid_pair);
+  
+    set_tail(mid_pair, null);
+
+    return pair(xs, rest_of_xs);
+
+}
+
+.................................................................................................................................................................
+
+function d_merge(xs, ys) {
+
+    // *** Your answer here. ***
+   if( is_null(xs) ) {
+        return  ys;
+   }
+   else if (is_null(ys)){
+       return xs;
+   }
+   else {
+       const a = head(xs);
+       const b = head(ys);
+       
+       if ( a < b) {
+           set_tail(xs, d_merge(tail(xs), ys));
+           return xs;
+       }
+       else {
+           set_tail(ys, d_merge(xs, tail(ys)));
+           return ys;
+       }
+   }
+}
+
+......................................................................................................................................................................
+
+function d_split_list(xs) {
+
+    // *** Your answer here. ***
+    const length_pair = length(xs);
+    const mid = length_pair % 2 === 0 ? length_pair / 2 - 1 : math_floor(length_pair / 2);
+    
+  
+    
+    let mid_pair = xs;
+    for (let i = 0; i < mid; i = i + 1) {
+        mid_pair = tail(mid_pair);
+    }
+
+    
+    const rest_of_xs = tail(mid_pair);
+  
+    set_tail(mid_pair, null);
+
+    return pair(xs, rest_of_xs);
+
+}
+
+// Copy-and-paste your d_merge function for Task 2 here.
+function d_merge(xs, ys) {
+
+    // *** Your answer here. ***
+   if( is_null(xs) ) {
+        return  ys;
+   }
+   else if (is_null(ys)){
+       return xs;
+   }
+   else {
+       const a = head(xs);
+       const b = head(ys);
+       
+       if ( a < b) {
+           set_tail(xs, d_merge(tail(xs), ys));
+           return xs;
+       }
+       else {
+           set_tail(ys, d_merge(xs, tail(ys)));
+           return ys;
+       }
+   }
+}
+
+function d_merge_sort(xs) {
+
+    // *** Your answer here. ***
+    if ( is_null(xs) || is_null(tail(xs)))
+    {
+        return xs;
+    }
+    else {
+         const xs_split = d_split_list(xs);
+        const part_a = head(xs_split);
+        const part_b = tail(xs_split);
+
+        return d_merge(d_merge_sort(part_a), d_merge_sort(part_b));
+    
+    }
+
+}
