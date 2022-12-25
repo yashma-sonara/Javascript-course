@@ -1,0 +1,182 @@
+function red_rectangle_stream(s) {
+    // your solution goes here
+   function helper(ss) {
+       let max_x = 0;
+       let max_y = 0;
+       let min_x = -1;
+       let min_y = -1;
+       for (let x = 0; x < HEIGHT; x = x + 1) {
+           for (let y = 0; y < WIDTH; y = y + 1) {
+               if(ss[x][y][0] === 255 && ss[x][y][1] === 0 && ss[x][y][2] === 0) {
+                   if(min_x === -1) {
+                       min_x = x;
+                       min_y = y;
+                    }
+                    else {
+                        max_x = x; 
+                        min_y = y < min_y ? y : min_y;
+                        max_y = y > max_y ? y : max_y;
+                    }
+               }
+           }
+       }return pair(pair(min_x, min_y), pair(max_x, max_y));
+   } 
+    return stream_map(helper, s);
+}
+
+head(red_rectangle_stream(anomaly_stream));
+.................................................................................................................................................................
+
+function red_rectangle_stream(s) {
+    // your solution goes here
+   function helper(ss) {
+       let max_x = 0;
+       let max_y = 0;
+       let min_x = -1;
+       let min_y = -1;
+       for (let x = 0; x < HEIGHT; x = x + 1) {
+           for (let y = 0; y < WIDTH; y = y + 1) {
+               if(ss[x][y][0] === 255 && ss[x][y][1] === 0 && ss[x][y][2] === 0) {
+                   if(min_x === -1) {
+                       min_x = x;
+                       min_y = y;
+                    }
+                    else {
+                        max_x = x; 
+                        min_y = y < min_y ? y : min_y;
+                        max_y = y > max_y ? y : max_y;
+                    }
+               }
+           }
+       }return pair(pair(min_x, min_y), pair(max_x, max_y));
+   } 
+    return stream_map(helper, s);
+}
+
+
+
+function stream_combine(f, s1, s2) {
+    // your solution goes here
+    return pair(f(head(s1), head(s2)), () => stream_combine(f, stream_tail(s1), stream_tail(s2)));
+
+}
+
+
+// Trim the given image using the given rectangle.
+// Returns an image that includes all purely red
+// pixels of the given image.
+
+function trim(image, rectangle) {
+    const trimmed = [];
+    const i_min = head(head(rectangle));
+    const j_min = tail(head(rectangle));
+    const i_max = head(tail(rectangle));
+    const j_max = tail(tail(rectangle));
+
+    for (let i = i_min; i <= i_max; i = i + 1) {
+        const new_i = i - i_min;
+        trimmed[new_i] = [];
+        for (let j = j_min; j <= j_max; j = j + 1) {
+            const new_j = j - j_min;
+            trimmed[new_i][new_j] = image[i][j];
+        }
+    }
+    return trimmed;
+}
+
+// Example:
+
+const focused_stream = stream_combine(
+                           trim,
+                           anomaly_stream,
+                           red_rectangle_stream(anomaly_stream));
+head(focused_stream);
+
+...................................................................................................................................................................
+
+
+
+import { alpha_of, blue_of, compose_filter, copy_image, get_video_time, green_of, image_height, image_width, install_filter, keep_aspect_ratio, pause_at, red_of, reset_filter, set_dimensions, set_fps, set_loop_count, set_rgba, set_volume, start, use_image_url, use_local_file } from "pix_n_flix";
+function red_rectangle_stream(s) {
+    // your solution goes here
+   function helper(ss) {
+       let max_x = 0;
+       let max_y = 0;
+       let min_x = -1;
+       let min_y = -1;
+       for (let x = 0; x < HEIGHT; x = x + 1) {
+           for (let y = 0; y < WIDTH; y = y + 1) {
+               if(ss[x][y][0] === 255 && ss[x][y][1] === 0 && ss[x][y][2] === 0) {
+                   if(min_x === -1) {
+                       min_x = x;
+                       min_y = y;
+                    }
+                    else {
+                        max_x = x; 
+                        min_y = y < min_y ? y : min_y;
+                        max_y = y > max_y ? y : max_y;
+                    }
+               }
+           }
+       }return pair(pair(min_x, min_y), pair(max_x, max_y));
+   } 
+    return stream_map(helper, s);
+}
+
+
+
+function stream_combine(f, s1, s2) {
+    // your solution goes here
+    return pair(f(head(s1), head(s2)), () => stream_combine(f, stream_tail(s1), stream_tail(s2)));
+
+}
+
+
+// Trim the given image using the given rectangle.
+// Returns an image that includes all purely red
+// pixels of the given image.
+
+function trim(image, rectangle) {
+    const trimmed = [];
+    const i_min = head(head(rectangle));
+    const j_min = tail(head(rectangle));
+    const i_max = head(tail(rectangle));
+    const j_max = tail(tail(rectangle));
+
+    for (let i = i_min; i <= i_max; i = i + 1) {
+        const new_i = i - i_min;
+        trimmed[new_i] = [];
+        for (let j = j_min; j <= j_max; j = j + 1) {
+            const new_j = j - j_min;
+            trimmed[new_i][new_j] = image[i][j];
+        }
+    }
+    return trimmed;
+}
+function stream_to_filter(s) {
+    // your solution goes here
+    let A = s;
+    function filter_help(src, dest) {
+        if(!is_null(A)) {
+            copy_image(head(A), dest);
+            A = stream_tail(A);
+        }
+        else {
+         null;
+        }
+    }
+    return filter_help;
+
+}
+
+const focused_stream = stream_combine(
+                           trim,
+                           anomaly_stream,
+                           red_rectangle_stream(anomaly_stream));
+
+install_filter(stream_to_filter(focused_stream));
+
+set_dimensions(19, 19);
+keep_aspect_ratio(true);
+set_fps(1);
+start();
