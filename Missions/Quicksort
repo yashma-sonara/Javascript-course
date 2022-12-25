@@ -1,0 +1,59 @@
+function partition(xs, p) {
+    // your answer here
+    
+    function checker(x) {
+        return x <= p;
+    }
+    
+    function less_list(xs) {
+        return filter(x => checker(x), xs);
+    }
+    function more_list(xs) {
+        return filter(x=> !checker(x) , xs);
+    }
+    
+    return is_null(xs)
+    ? pair(null, null)
+    : pair(less_list(xs), more_list(xs));
+}
+
+...............................................................................................................................................................
+function partition(xs, p) {
+    // your answer from Task 1
+    function checker(x) {
+        return x <= p;
+    }
+    
+    function less_list(xs) {
+        return filter(x => checker(x), xs);
+    }
+    function more_list(xs) {
+        return filter(x=> !checker(x) , xs);
+    }
+    
+    return is_null(xs)
+    ? pair(null, null)
+    : pair(less_list(xs), more_list(xs));
+}
+
+
+function quicksort(xs) {
+    // your answer here
+     if (is_null(xs)) {
+        return list();
+    } else if (is_null(tail(xs))) {
+        return xs;
+    } else {
+        const p = head(xs);
+        
+        const partitions = partition(tail(xs), p);
+        const small = head(partitions);
+        const big = tail(partitions);
+        
+        // small_part + p + big_part
+        return append(
+            quicksort(small),
+            pair(p, quicksort(big))
+        );
+    }
+}
