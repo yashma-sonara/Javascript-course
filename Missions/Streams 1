@@ -1,0 +1,201 @@
+function array_to_stream(a) {
+    // your solution goes here
+    let x = 0; 
+    function helper(b, i) {
+        if(i < array_length(b)){
+            return pair(b[i], () => helper(b, i+1));
+        }
+        else {
+            return null;
+        }
+    }
+    
+    const result = helper(a, 0);
+    return result;
+
+}
+
+................................................................................................................................................................
+
+
+const FPS = 10;
+
+// Your array_to_stream function from TASK 1 goes here.
+function array_to_stream(a) {
+    // your solution goes here
+    let x = 0; 
+    function helper(b, i) {
+        if(i < array_length(b)){
+            return pair(b[i], () => helper(b, i+1));
+        }
+        else {
+            return null;
+        }
+    }
+    
+    const result = helper(a, 0);
+    return result;
+
+}
+
+function stream_to_filter(s) {
+    // your solution goes here
+    let A = s;
+    function filter_help(src, dest) {
+        if(!is_null(A)) {
+            copy_image(head(A), dest);
+            A = stream_tail(A);
+        }
+        else {
+         null;
+        }
+    }
+    return filter_help;
+
+}
+
+
+install_filter(stream_to_filter(array_to_stream(anomaly_data)));
+
+set_dimensions(WIDTH, HEIGHT);
+keep_aspect_ratio(true);
+set_fps(FPS);
+start();
+
+................................................................................................................................................................
+
+const FPS = 10;
+
+// Your array_to_stream function from TASK 1 goes here.
+function array_to_stream(a) {
+    // your solution goes here
+    let x = 0; 
+    function helper(b, i) {
+        if(i < array_length(b)){
+            return pair(b[i], () => helper(b, i+1));
+        }
+        else {
+            return null;
+        }
+    }
+    
+    const result = helper(a, 0);
+    return result;
+
+}
+
+// Your stream_to_filter function from TASK 2 goes here.
+function stream_to_filter(s) {
+    // your solution goes here
+    let A = s;
+    function filter_help(src, dest) {
+        if(!is_null(A)) {
+            copy_image(head(A), dest);
+            A = stream_tail(A);
+        }
+        else {
+         null;
+        }
+    }
+    return filter_help;
+
+}
+
+function loop(s) {
+     function helper(stream) {
+         if (is_null(stream_tail(stream))) {
+            return  pair(head(stream), () => helper(s));
+        } else {
+            return pair(head(stream), () => helper(stream_tail(stream)));
+    }
+    }
+    return helper(s);
+    
+}
+
+
+install_filter(
+    stream_to_filter(
+        loop(array_to_stream(anomaly_data))));
+
+set_dimensions(WIDTH, HEIGHT);
+keep_aspect_ratio(true);
+set_fps(FPS);
+start();
+
+..................................................................................................................................................................
+
+
+const FPS = 10;
+
+// Your array_to_stream function from TASK 1 goes here.
+function array_to_stream(a) {
+    // your solution goes here
+    let x = 0; 
+    function helper(b, i) {
+        if(i < array_length(b)){
+            return pair(b[i], () => helper(b, i+1));
+        }
+        else {
+            return null;
+        }
+    }
+    
+    const result = helper(a, 0);
+    return result;
+
+}
+
+// Your stream_to_filter function from TASK 2 goes here.
+function stream_to_filter(s) {
+    // your solution goes here
+    let A = s;
+    function filter_help(src, dest) {
+        if(!is_null(A)) {
+            copy_image(head(A), dest);
+            A = stream_tail(A);
+        }
+        else {
+         null;
+        }
+    }
+    return filter_help;
+
+}
+
+// Your loop function from TASK 3 goes here.
+function loop(s) {
+     function helper(stream) {
+         if (is_null(stream_tail(stream))) {
+            return  pair(head(stream), () => helper(s));
+        } else {
+            return pair(head(stream), () => helper(stream_tail(stream)));
+    }
+    }
+    return helper(s);
+    
+}
+
+
+function time_lapse(s, n) {
+    function helper ( i,stream){
+        if (i % n === 0) {
+            return pair(head(stream), () => helper(i+1, stream_tail(stream)));
+        } 
+        else {
+            return helper(i + 1, stream_tail(stream));
+        }
+    }
+    return helper(0, s);
+}
+
+
+install_filter(
+    stream_to_filter(
+        time_lapse(loop(array_to_stream(anomaly_data)),
+                   3)));
+
+set_dimensions(WIDTH, HEIGHT);
+keep_aspect_ratio(true);
+set_fps(FPS);
+start();
